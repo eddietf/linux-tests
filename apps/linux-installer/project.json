@@ -1,0 +1,71 @@
+{
+  "name": "linux-installer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/linux-installer/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist\\{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "package": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "baseUrl": "./",
+        "packRootDir": "dist/node_modules/@coates/linux-installer",
+        "target": "node",
+        "compiler": "tsc",
+        "outputFileName": "linux-installer.js",
+        "outputPath": "dist/node_modules/@coates/linux-installer",
+        "main": "apps/linux-installer/src/index.ts",
+        "tsConfig": "apps/linux-installer/tsconfig.app.json",
+        "webpackConfig": "apps/linux-installer/webpack.config.js",
+        "additionalEntryPoints": [
+          {
+            "entryName": "coates-run-installer",
+            "entryPath": "apps/linux-installer/src/run-installer.ts"
+          },
+          {
+            "entryName": "coates-install-hook",
+            "entryPath": "apps/linux-installer/src/install-hook.ts"
+          },
+          {
+            "entryName": "coates-wait-screen",
+            "entryPath": "apps/linux-installer/src/wait-screen.ts"
+          }
+        ],
+        "vendorChunk": true,
+        "runtimeChunk": true,
+        "commonChunk": true,
+        "generatePackageJson": true
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/linux-installer",
+        "main": "apps/linux-installer/src/index.ts",
+        "tsConfig": "apps/linux-installer/tsconfig.app.json",
+        "assets": [
+          "apps/linux-installer/*.md"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist\\{projectRoot}"
+      }
+    }
+  }
+}
