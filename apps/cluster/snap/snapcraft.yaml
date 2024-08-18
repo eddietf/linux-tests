@@ -1,0 +1,96 @@
+name: coates-installer
+version: 1.0.0
+base: core24
+summary: coates-installer Coates Ubuntu Core first boot experience
+description: |
+  coates-installer provide device onboarding experience for
+  Coates Ubuntu Core systems. User can configure network and
+  assume ownership of the system.
+
+confinement: strict
+
+environment:
+  PATH: $SNAP/usr/bin:$SNAP/usr/sbin:$PATH
+  SNAP_CONFINEMENT: "strict"
+
+apps:
+  coates-run-installer:
+    command: bin/node $SNAP/bin/coates-run-installer
+    plugs:
+      # TODO: controversial interfaces disabled to enable store uploads
+      - hardware-observe
+      - network
+      - network-control
+      - network-observe
+      - network-setup-control
+      - run-coates-installer
+      - var-log-coates-installer
+      - terminal-control
+      - snapd-control
+
+  coates-wait-screen:
+    command: bin/node $SNAP/bin/coates-wait-screen
+  
+parts:
+  coates-installer:
+    plugin: npm
+    npm-include-node: true
+    npm-node-version: 20.16.0
+    source: .
+
+plugs:
+  run-coates-installer:
+    interface: system-files
+    write:
+      - /run/coates-installer
+  var-log-coates-installer:
+    interface: system-files
+    write:
+      - /var/log/coates-installer
+  terminal-control:
+    interface: custom-device
+
+slots:
+  terminal-devices:
+    interface: custom-device
+    custom-device: terminal-control
+    # XXX this could use x11/wayland/mir interface, but we only need a subset of
+    # the permissions provided by each
+    devices:
+      - /dev/tty[0-9]
+      - /dev/ttyS[0-9]
+    udev-tagging:
+      - kernel: tty[0-9]
+        subsystem: tty
+      - kernel: ttyS[0-9]
+        subsystem: tty
+
+
+build-packages:
+  - git
+  - apt-utils
+  - build-essential
+  - debhelper-compat
+  - devscripts
+  - dh-python
+  - fakeroot
+  - gettext
+  - iso-codes
+  - libnl-genl-3-dev
+  - libnl-route-3-dev
+  - lsb-release
+  - pkg-config
+  - python3
+  - python3-all-dev
+  - python3-coverage
+  - python3-distutils-extra
+  - python3-flake8
+  - python3-jsonschema
+  - python3-mock
+  - python3-nose
+  - python3-pip
+  - python3-pyudev
+  - python3-testtools
+  - python3-yaml
+
+

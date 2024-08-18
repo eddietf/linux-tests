@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo ''
+echo ''
+echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+echo '            INSTALL COATES INSTALLER '
+echo '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+echo ''
+# do nothing for now

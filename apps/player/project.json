@@ -1,5 +1,5 @@
 {
-  "name": "linux-installer",
+  "name": "player",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/linux-installer/src",
   "projectType": "library",
@@ -33,35 +33,46 @@
             "glob": "**/*",
             "input": "apps/linux-installer/snap",
             "output": "snap"
-          },
-          {
-            "glob": "**/*",
-            "input": "apps/linux-installer/assets",
-            "output": "assets"
           }
         ],
         "additionalEntryPoints": [
           {
-            "entryName": "configure",
-            "entryPath": "apps/linux-installer/src/configure.ts"
+            "entryName": "install-daemon",
+            "entryPath": "apps/linux-installer/src/install-daemon.ts"
           },
           {
-            "entryName": "server",
-            "entryPath": "apps/linux-installer/src/server.ts"
+            "entryName": "install-hook",
+            "entryPath": "apps/linux-installer/src/install-hook.ts"
           },
           {
-            "entryName": "wait",
-            "entryPath": "apps/linux-installer/src/wait.ts"
+            "entryName": "run-installer",
+            "entryPath": "apps/linux-installer/src/run-installer.ts"
           },
           {
-            "entryName": "run",
-            "entryPath": "apps/linux-installer/src/run.ts"
+            "entryName": "wait-screen",
+            "entryPath": "apps/linux-installer/src/wait-screen.ts"
           }
         ],
         "vendorChunk": true,
         "runtimeChunk": true,
         "commonChunk": true,
         "generatePackageJson": true
+      }
+    },
+    "build-tsc": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/linux-installer",
+        "main": "apps/linux-installer/src/index.ts",
+        "tsConfig": "apps/linux-installer/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/linux-installer/snap",
+            "output": "snap"
+          }
+        ]
       }
     },
     "snapcraft": {

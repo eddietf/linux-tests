@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { LinuxInstaller } from './index'
 
 console.log("Hello World")

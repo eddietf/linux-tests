@@ -2,14 +2,10 @@
   "name": "@coates/linux-installer",
   "version": "0.0.1",
   "bin": {
-    "coates-run-installer" : "./coates-run-installer.js",
-    "coates-install-hook" : "./coates-install-hook.js",
-    "coates-wait-screen.ts" : "./coates-wait-screen.ts.js"
+    "configure" : "./configure.js",
+    "server" : "./server.js",
+    "wait" : "./wait.js",
+    "run" : "./run.js"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "type": "commonjs",
-  "main": "./src/index.js",
-  "typings": "./src/index.d.ts"
+  "type": "commonjs"
 }

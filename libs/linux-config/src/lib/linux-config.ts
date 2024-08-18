@@ -1,11 +1,19 @@
 import { SnapDClient } from "@coates/snapd-client"
+import { DiskManager } from "./disks/disk.manager"
 
 export class LinuxConfigurator {
 
+  dm?:DiskManager
   snapd:SnapDClient
 
   constructor() {
     this.snapd = new SnapDClient()
+  }
+
+  getDiskManager() : DiskManager {
+    if(!this.dm)
+      this.dm = new DiskManager()
+    return this.dm
   }
 
   verifySystemDServices() {
@@ -14,5 +22,4 @@ export class LinuxConfigurator {
       console.log("Configuring system")
     }
   }
-
 }

@@ -1,1 +1,1 @@
-export * from './lib/linux-config';
+export * from './lib';
